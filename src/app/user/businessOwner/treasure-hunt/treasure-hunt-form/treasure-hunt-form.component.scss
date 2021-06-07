@@ -1,0 +1,26 @@
+button {
+  display: flex;
+  min-width: 100px;
+  place-content: center;
+  place-items: center;
+  align-content: space-between;
+  font-size: 18px;
+  margin: 0.25rem 0;
+  color: #ffffff!important;
+
+  i {
+    padding-left: 5px;
+  }
+}
+mat-vertical-stepper {
+  min-width: 100%;
+}
+
+p {
+  text-align: right;
+  direction: rtl;
+}
+
+.details-step-title {
+  text-decoration: underline;
+}

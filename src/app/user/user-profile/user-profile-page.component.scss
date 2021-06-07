@@ -1,0 +1,88 @@
+.profile-menu{
+    li {
+      display: flex;
+      place-content: center;
+
+      .active{
+        border-bottom: 2px solid;
+        margin-bottom: -2px;
+      }
+    }
+}
+section {
+  min-height: 35vh;
+  padding: 0;
+  .card {
+    margin: 0;
+  }
+}
+#user-profile {
+  margin-top: 72px;
+  .user-name {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+  }
+
+  .cover-fixed-buttons {
+    position: absolute;
+    bottom: 50px;
+    left: 10px;
+
+    button {
+      display: flex;
+      min-width: 100px;
+      place-content: center;
+      place-items: center;
+      align-content: space-between;
+      font-size: 18px;
+      margin-bottom: 0.25rem;
+      color: #ffffff!important;
+
+      i {
+        padding-left: 5px;
+      }
+    }
+  }
+
+  .profile-image {
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 50px);
+
+    @media (max-width: 1100px) {
+      & {
+        bottom: 50px;
+      }
+    }
+    & img{
+      margin-left: 0;
+    }
+  }
+  .profile-section {
+    .no-list-style {
+      position: unset;
+    }
+  }
+}
+.card {
+  .card-content {
+    .card-body {
+      .h5 {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+.hobbies-layout {
+  display: flex;
+  flex-direction: row;
+  place-content: space-between;
+  .hobbies {
+    display: flex;
+    flex-direction: column;
+    mat-checkbox {
+      margin-bottom: 0.25rem;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+button {
+  display: flex;
+  min-width: 100px;
+  place-content: center;
+  place-items: center;
+  align-content: space-between;
+  font-size: 18px;
+  margin: 0.25rem 0;
+  color: #ffffff!important;
+
+  i {
+    padding-left: 5px;
+  }
+}
+h3 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+mat-radio-group {
+   margin-right: 1.5rem;
+}

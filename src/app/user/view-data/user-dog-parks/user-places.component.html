@@ -1,0 +1,34 @@
+<div class="filter">
+  <mat-select [(ngModel)]="currentType" (selectionChange)="applyFilter()">
+    <mat-option [value]="placeType.Dog_garden">{{placeTypeTitles[placeType.Dog_garden]}}</mat-option>
+    <mat-option [value]="placeType.NationalParks">{{placeTypeTitles[placeType.NationalParks]}}</mat-option>
+    <mat-option [value]="placeType.Cafewithdog">{{placeTypeTitles[placeType.Cafewithdog]}}</mat-option>
+    <mat-option [value]="placeType.Historic_Parks">{{placeTypeTitles[placeType.Historic_Parks]}}</mat-option>
+  </mat-select>
+</div>
+<div class="row">
+  <div class="col-12 col-lg-4" *ngFor="let park of places">
+    <mat-card class="card m-3">
+      <mat-card-header>
+        <div mat-card-avatar class="header-image">
+          <img mat-card-avatar [src]="park.icon" alt="icon">
+        </div>
+        <mat-card-title>{{park.name}}</mat-card-title>
+        <mat-card-subtitle>מתוחזק ע"י: {{park.operator}}</mat-card-subtitle>
+      </mat-card-header>
+      <img class="cover-image" mat-card-image [src]="park.image" alt="image">
+      <mat-card-content fxLayout="column">
+        <span>סוג המתקן: {{placeTypeTitles[park.type]}}</span>
+        <span>מצב המתקן: {{conditionTypeTitles[park.condition]}}</span>
+        <span>מותאם לנכים: {{park.handicapped ? 'כן' : 'לא'}}</span>
+        <span>שכונה: {{park.neighborhood}}</span>
+        <span>רחוב: {{park.street}}</span>
+      </mat-card-content>
+<!--      <mat-card-actions>-->
+<!--        <button mat-button>LIKE</button>-->
+<!--        <button mat-button>SHARE</button>-->
+<!--      </mat-card-actions>-->
+    </mat-card>
+  </div>
+
+</div>

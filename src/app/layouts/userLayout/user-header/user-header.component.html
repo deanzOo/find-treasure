@@ -1,0 +1,32 @@
+<header id="header" class="fixed-top">
+  <div class="container d-flex justify-content-between">
+
+    <div class="logo d-flex">
+      <img src="./../../../../assets/img/logo2.png" class="animated jackInTheBox delay-1s slow" alt="">
+      <h1 class="text-light animated lightSpeedIn delay-2s"><a routerLink="/home">Find Treasure</a></h1>
+    </div>
+
+    <nav class="nav-menu">
+      <ul>
+        <li class="get-started"><a routerLink="/viewData">נקודות עניין</a></li>
+        <li class="nav-item avatar dropdown">
+          <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            <img *ngIf="!currentUser || (currentUser && currentUser.avatar === '')" src="https://s3-eu-west-1.amazonaws.com/files.find-treasure/defaultAvater.jpg" class="rounded-circle z-depth-0 width-50 height-50"
+                 alt="avatar image">
+            <img *ngIf="currentUser && currentUser.avatar.length" [src]="currentUser.avatar" class="rounded-circle z-depth-0 width-50 height-50"
+                 alt="avatar image">
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+               aria-labelledby="navbarDropdownMenuLink-55">
+            {{!currentUser ? 'שלום אורח' : 'שלום ' + currentUser.name}}
+            <a *ngIf="!currentUser"  class="dropdown-item" (click)="login()" >התחבר</a>
+            <a *ngIf="currentUser" class="dropdown-item" routerLink="/profile" >הפרופיל שלי</a>
+            <a *ngIf="currentUser && currentUser.user_type == 0" class="dropdown-item" routerLink="/admin/login" >פאנל ניהול</a>
+            <a *ngIf="currentUser" class="dropdown-item" (click)="logout()">התנתק</a>
+          </div>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

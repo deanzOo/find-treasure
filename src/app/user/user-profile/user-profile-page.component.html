@@ -1,0 +1,251 @@
+<!--User Profile Starts-->
+<!--Basic User Details Starts-->
+<section id="user-profile">
+    <div class="row">
+        <div class="col-12">
+            <div class="card profile-with-cover">
+              <div class="card-img-top img-fluid bg-cover height-300"
+                   style="background: url('../../../assets/img/photos/14.jpg') 50%;"></div>
+              <div class="text-left user-name">
+                  <h3 class="card-title white">{{currentUser.name}}</h3>
+              </div>
+              <div class="cover-fixed-buttons">
+                <div class="text-right d-lg-block">
+                  <button *ngIf="!edit" (click)="startEdit()" type="button" class="btn btn-primary btn-raise"><i class="ft-edit-2"></i>ערוך</button>
+                  <button *ngIf="edit" (click)="save()" type="button" class="btn btn-success btn-raised"><i class="ft-save"></i>שמור</button>
+                  <button *ngIf="edit" (click)="edit = !edit; imageSrc = null" type="button" class="btn btn-danger btn-raised"><i class="ft-delete"></i>בטל</button>
+                </div>
+              </div>
+
+                <a class="profile-image">
+                  <input type="file" (change)="selectFile($event)" #avatar class="d-none" >
+                  <img [src]="imageSrc || currentUser.avatar"
+                       (click)="edit ? avatar.click() : null"
+                       class="rounded-circle img-border gradient-summer width-100 height-100" alt="Card image">
+                </a>
+                <div class="profile-section">
+                  <ul class="profile-menu no-list-style">
+                    <li class="col-3">
+                      <div [ngClass]="currentPage === 'About' ? 'primary font-medium-2 font-weight-600 active' : 'primary font-medium-2 font-weight-600'">
+                        <a (click)="showPage('About')" >פרטים אישיים</a>
+                      </div>
+                    </li>
+                    <li class="col-3">
+                      <div [ngClass]="currentPage === 'MyGames' ? 'primary font-medium-2 font-weight-600 active' : 'primary font-medium-2 font-weight-600'">
+                        <a (click)="showPage('MyGames')" >המשחקים שלי</a>
+                      </div>
+                    </li>
+                    <li class="col-3">
+                      <div [ngClass]="currentPage === 'MyCreateGames' ? 'primary font-medium-2 font-weight-600 active' : 'primary font-medium-2 font-weight-600'">
+                        <a (click)="showPage('MyCreateGames')" >משחקים שיצרתי</a>
+                      </div>
+                    </li>
+                    <li class="col-3">
+                    </li>
+                  </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Basic User Details Ends-->
+
+<!--About section starts-->
+<section id="about" *ngIf="currentPage === 'About'">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card">
+                <div class="card-content">
+                  <div class="card-body">
+                    <form [formGroup]="form" fxLayout="column">
+                      <div class="mb-2">
+                        <span class="text-bold-500 primary h5">פרטים אישיים:</span>
+                      </div>
+                      <div class="row">
+
+                          <div class="col-6">
+                              <ul class="no-list-style">
+                                  <li class="mb-2">
+                                      <span class="text-bold-500 primary"><a><i class="icon-present font-small-3"></i> תאריך לידה:</a></span>
+                                      <span *ngIf="!edit" class="d-block overflow-hidden">{{currentUser.birthday ? (currentUser.birthday | date:'dd/MM/yyyy') : 'לא הוגדר'}}</span>
+                                      <div *ngIf="edit">
+                                        <input matInput [matDatepicker]="start_picker" formControlName="birthday" />
+                                        <mat-datepicker-toggle matSuffix [for]="start_picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #start_picker></mat-datepicker>
+                                      </div>
+                                  </li>
+                                  <li class="mb-2">
+                                    <span class="text-bold-500 primary"><a><i class="ft-user font-small-3"></i> גבר/אישה:</a></span>
+                                    <span *ngIf="!edit" class="d-block overflow-hidden">{{currentUser.gender === 0 ? 'גבר' : 'אישה'}}</span>
+                                    <div *ngIf="edit">
+                                      <mat-radio-group aria-label="Select an option" formControlName="gender">
+                                        <mat-radio-button [value]="0">גבר</mat-radio-button><br>
+                                        <mat-radio-button [value]="1">אישה</mat-radio-button>
+                                      </mat-radio-group>
+                                    </div>
+                                  </li>
+                                  <li class="mb-2">
+                                    <span class="text-bold-500 primary"><a><i class="ft-smartphone font-small-3"></i> מספר טלפון:</a></span>
+                                    <span class="d-block overflow-hidden">{{currentUser.phone}}</span>
+                                  </li>
+                              </ul>
+                          </div>
+                          <div class="col-6">
+                              <ul class="no-list-style">
+                                  <li class="mb-2" *ngIf="edit">
+                                    <span class="text-bold-500 primary"><a><i class="ft-mail font-small-3"></i> שם מלא:</a></span>
+                                    <div>
+                                      <input type="text" formControlName="name" />
+                                    </div>
+                                  </li>
+                                  <li class="mb-2">
+                                    <span class="text-bold-500 primary"><a><i class="ft-mail font-small-3"></i> כתובת דוא"ל:</a></span>
+                                    <span *ngIf="!edit" class="d-block overflow-hidden">{{currentUser.email == '' ? 'לא הוגדר' : currentUser.email}}</span>
+                                    <div *ngIf="edit">
+                                      <input type="text" formControlName="email" />
+                                    </div>
+                                  </li>
+                                  <li class="mb-2">
+                                    <span class="text-bold-500 primary"><a><i class="ft-book font-small-3"></i> תאריך הצטרפות:</a></span>
+                                    <span class="d-block overflow-hidden">10/01/2020</span>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                    </form>
+                    <hr>
+                    <div class="mt-3 mb-2">
+                        <span class="text-bold-500 primary h5">תחביבים:</span>
+                        <span class="d-block overflow-hidden">
+                          אנו ממליצים לציין מה הם התחביבים שלך על מנת שנוכל למקד אותך טוב יותר למשחקים שמתאימים עבורך.
+                        </span>
+                    </div>
+                    <div *ngIf="!edit" class="mt-2 overflow-hidden">
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Travelling)">
+                        <i class="icon-plane danger font-large-2"></i>
+                        <div class="mt-2">טיולים בעולם</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Driving)">
+                        <i class="icon-speedometer danger font-large-2"></i>
+                        <div class="mt-2">נהיגה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Photography)">
+                        <i class="icon-camera danger font-large-2"></i>
+                        <div class="mt-2">צילום ועיצוב</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Gaming)">
+                        <i class="icon-game-controller danger font-large-2"></i>
+                        <div class="mt-2">משחקי קונסולה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Music)">
+                        <i class="icon-music-tone-alt danger font-large-2"></i>
+                        <div class="mt-2">מוזיקה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Surfing)">
+                        <i class="ft-monitor danger font-large-2"></i>
+                        <div class="mt-2">גלישה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Foodie)">
+                        <i class="ft-pie-chart danger font-large-2"></i>
+                        <div class="mt-2">אוכל</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.TV)">
+                        <i class="ft-tv danger font-large-2"></i>
+                        <div class="mt-2">טלויזיה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Shopping)">
+                        <i class="icon-basket-loaded danger font-large-2"></i>
+                        <div class="mt-2">קניות</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Social)">
+                        <i class="icon-like danger font-large-2"></i>
+                        <div class="mt-2">רשתות חברתיות</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Reading)">
+                        <i class="icon-book-open danger font-large-2"></i>
+                        <div class="mt-2">קריאה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Sport)">
+                        <i class="icon-social-dribbble danger font-large-2"></i>
+                        <div class="mt-2">ספורט</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Computers)">
+                        <i class="icon-mouse danger font-large-2"></i>
+                        <div class="mt-2">מחשבים וטכנולוגיה</div>
+                      </span>
+                      <span class="mr-3 mt-2 text-center float-left width-100"
+                            *ngIf="checkHobbies(userHobbies.Camping)">
+                        <i class="icon-fire danger font-large-2"></i>
+                        <div class="mt-2">קמפינג וטבע</div>
+                      </span>
+                    </div>
+                    <div *ngIf="edit" class="mt-2 overflow-hidden">
+                      <div class="hobbies-layout container">
+                        <div class="hobbies">
+                          <mat-checkbox [(ngModel)]="currentHobbies.Travelling">טיולים בעולם</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Driving">נהיגה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Photography">צילום ועיצוב</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Gaming">משחקי קונסולה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Music">מוזיקה</mat-checkbox>
+                        </div>
+                        <div class="hobbies">
+                          <mat-checkbox [(ngModel)]="currentHobbies.Surfing">גלישה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Foodie">אוכל</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.TV">טלויזיה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Shopping">קניות</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Social">רשתות חברתיות</mat-checkbox>
+                        </div>
+                        <div class="hobbies">
+                          <mat-checkbox [(ngModel)]="currentHobbies.Reading">קריאה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Sport">ספורט</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Computers">מחשבים וטכנולוגיה</mat-checkbox>
+                          <mat-checkbox [(ngModel)]="currentHobbies.Camping">קמפינג וטבע</mat-checkbox>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--About section ends-->
+
+<!--User Timeline section starts-->
+<section *ngIf="currentPage === 'MyCreateGames'">
+    <div class="container">
+      <app-treasure-hunt-view [places]="places"></app-treasure-hunt-view>
+    </div>
+</section>
+<!--User Timeline section ends-->
+
+<!--User Timeline section starts-->
+<section *ngIf="currentPage === 'MyGames'">
+    <div class="container">
+      <app-my-games></app-my-games>
+    </div>
+</section>
+<!--User Timeline section ends-->
+
+
+<!--User's uploaded photos section starts-->
+<section id="business" *ngIf="currentUser.user_type === userTypes.User && currentPage === 'business'">
+  <div class="container">
+    <app-business-view [myBusinesses]="currentUser.businesses"></app-business-view>
+  </div>
+</section>
+<!--User's uploaded photos section starts-->
+<!--User Profile Starts-->
